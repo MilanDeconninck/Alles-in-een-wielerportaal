@@ -19,4 +19,14 @@ class PloegService {
         $ploeg = new Ploeg((int) $ploegInfo["id"], $ploegInfo["naam"], (int) $ploegInfo["plaatsId"], (int) $ploegInfo["fietsmerkId"]);
         return $ploeg;
     }
+
+    public function getPloegen() {
+        $ploegen = array();
+        $ploegenInfo = $this->ploegDAO->getAll();
+        foreach($ploegenInfo as $ploeg) {
+            $ploegInfo = new Ploeg((int) $ploeg["id"], $ploeg["naam"], (int) $ploeg["plaatsId"], (int) $ploeg["fietsmerkId"]);
+            array_push($ploegen, $ploegInfo);
+        }
+        return $ploegen;
+    }
 }

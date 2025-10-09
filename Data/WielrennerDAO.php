@@ -53,7 +53,7 @@ class WielrennerDAO
 
     public function delete(int $id)
     {
-        $sql = "delete * from wielrenners where id = :id";
+        $sql = "delete from wielrenners where id = :id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);
         $stmt->execute(array(':id' => $id));

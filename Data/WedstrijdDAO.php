@@ -21,6 +21,16 @@ class WedstrijdDAO
         return $lijst;
     }
 
+    public function getWedstrijdById(int $id) {
+        $sql = "select * from wedstrijden where id = :id order by startdatum";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':id' => $id));
+        $wedstrijd = $stmt->fetch(PDO::FETCH_ASSOC);
+        $dbh = null;
+        return $wedstrijd;
+    }
+
     public function create(string $naam, int $plaatsId, float $afstand, int $typeId, string $startdatum, string $einddatum)
     {
         $sql = "insert into wedstrijden (naam, plaatsId, afstand, typeId, startdatum, einddatum) values (:naam, :plaatsId, :afstand, :typeId, :startdatum, :einddatum)";
@@ -36,6 +46,14 @@ class WedstrijdDAO
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);
         $stmt->execute(array(':id' => $id, ':naam' => $naam, ':plaatsId' => $plaatsId, ':afstand' => $afstand, ':typeId' => $typeId, ':startdatum' => $startdatum, ':einddatum' => $einddatum));
+        $dbh = null;
+    }
+
+    public function delete(int $id) {
+        $sql = "delete from wedstrijden where id = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':id' => $id));
         $dbh = null;
     }
 }

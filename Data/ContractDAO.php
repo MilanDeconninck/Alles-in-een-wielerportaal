@@ -54,12 +54,12 @@ class ContractDAO
         $dhb = null;
     }
 
-    public function delete(int $rennerId, int $ploegId, string $startdatum)
+    public function delete(int $rennerId, string $startdatum)
     {
-        $sql = "delete * from contracten where rennerId = :rennerId and ploegId = :ploegId and startdatum = :startdatum";
+        $sql = "delete from contracten where rennerId = :rennerId and startdatum = :startdatum";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);
-        $stmt->execute(array(':rennerId' => $rennerId, ':ploegId' => $ploegId, ':startdatum' => $startdatum));
+        $stmt->execute(array(':rennerId' => $rennerId, ':startdatum' => date("Y-m-d", strtotime($startdatum))));
         $dbh = null;
     }
 }

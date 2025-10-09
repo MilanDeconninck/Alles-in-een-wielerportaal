@@ -8,7 +8,7 @@ require_once("header.php");
     <tbody>
         <tr>
             <td>
-                <img src="Img/profielfoto.jpg" alt="profielfoto <?php print($naam); ?>">
+                <img src="Img/profielfoto.jpg" alt="profielfoto <?php print ($naam); ?>">
             </td>
             <td>
                 <h1><?php print ($naam); ?></h1>
@@ -20,19 +20,48 @@ require_once("header.php");
                 <h3>(<?php print ($leeftijd . " jaar, " . $geboortedatum); ?>) - <?php print ($plaats); ?></h3>
             </td>
             <td>
-                <h2>Carrière</h2>
+                <h2>Carrière (<?php if($_SESSION["gebruiker"] == "admin") {
+                        ?>
+                        <a href="wielrennerZoeken.php?action=pensioen">Pensioen</a> )
+                        <?php
+                    }
+                    ?>
+                </h2>
                 <div>
                     <ul>
-                        <?php foreach($carriere as $jaar) {
+                        <?php foreach ($carriere as $jaar) {
                             ?>
                             <li>
-                               <?php print($jaar); ?>
+                                <?php print ($jaar); ?>
+                            </li>
+                            <?php
+                        }
+                        ?>
+                        <?php
+                        if ($_SESSION["gebruiker"] == "admin") {
+                            ?>
+                            <li>
+                                <a href="transfer.php">Transfer</a>
                             </li>
                             <?php
                         }
                         ?>
                     </ul>
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    <?php foreach ($deelnamesRenner as $deelname) {
+                        ?>
+                        <li>
+                            <?php print ($deelname); ?>
+                        </li>
+                        <?php
+                    }
+                    ?>
+                </ul>
             </td>
         </tr>
     </tbody>

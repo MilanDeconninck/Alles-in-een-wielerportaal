@@ -26,4 +26,12 @@ class ContractService
         }
         return $contracten;
     }
+
+    public function transferRenner(int $ploegId, int $rennerId, string $startdatum) {
+        $this->contractDAO->update($rennerId, $ploegId, $startdatum);
+    }
+
+    public function pensioen(int $rennerId, string $startdatum) {
+        $this->contractDAO->delete($rennerId, $startdatum);
+    }
 }

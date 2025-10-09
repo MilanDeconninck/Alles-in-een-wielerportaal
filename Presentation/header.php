@@ -28,7 +28,7 @@ declare(strict_types=1);
     }
     if (isset($_SESSION["gebruiker"]) && $_SESSION["gebruiker"] == "admin") {
         ?>
-        <a href="gebruiker.php">Gebruikers</a>;
+        <a href="gebruiker.php">Gebruikers</a>
         <?php
     }
     ?>
