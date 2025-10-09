@@ -11,17 +11,17 @@ use Exceptions\GebruikerBestaatNietException;
 
 $error = "";
 $_SESSION["gebruiker"] = "bezoeker";
-if(isset($_POST["login"])){
+if (isset($_POST["login"])) {
     $email = "";
     $wachtwoord = "";
 
-    if(!empty($_POST["email"])) {
+    if (!empty($_POST["email"])) {
         $email = $_POST["email"];
     } else {
         $error .= "Het e-mailadres moet ingevuld worden.";
     }
 
-    if(!empty($_POST["wachtwoord"])) {
+    if (!empty($_POST["wachtwoord"])) {
         $wachtwoord = $_POST["wachtwoord"];
     } else {
         $error .= "Het wachtwoord moet ingevuld worden.";
@@ -31,7 +31,7 @@ if(isset($_POST["login"])){
         try {
             $gebruiker = new GebruikerService();
             $controleLogin = $gebruiker->controleLogin($email, $wachtwoord);
-            if($controleLogin) {
+            if ($controleLogin) {
                 $_SESSION["gebruiker"] = $gebruiker->getRechten($email);
             } else {
                 $error .= "Het ingevoerde wachtwoord is onjuist.";
@@ -42,8 +42,8 @@ if(isset($_POST["login"])){
     }
 }
 
-if($_SESSION["gebruiker"] == "bezoeker") {
-include("Presentation/loginForm.php");
+if ($_SESSION["gebruiker"] == "bezoeker") {
+    include("Presentation/loginForm.php");
 } else {
     header("Location: main.php");
     exit(0);

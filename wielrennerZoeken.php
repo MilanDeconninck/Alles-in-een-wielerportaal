@@ -36,7 +36,7 @@ if ($_SESSION["gebruiker"] == "gebruiker" || $_SESSION["gebruiker"] == "admin") 
         $contractSvc->transferRenner($nieuwePloeg, $rennerId, $startdatum);
     }
 
-    if(isset($_GET["action"]) && $_GET["action"] == "pensioen") {
+    if (isset($_GET["action"]) && $_GET["action"] == "pensioen") {
         $rennerId = (int) $_SESSION["id"];
         $datum = date("Y") + 1 . "-01-01";
         $contractSvc->pensioen($rennerId, $datum);

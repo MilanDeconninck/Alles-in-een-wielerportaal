@@ -12,19 +12,19 @@ require_once("bootstrap.php");
 
 $error = "";
 $_SESSION["gebruiker"] = "bezoeker";
-if(isset($_POST["register"])) {
+if (isset($_POST["register"])) {
     $email = "";
     $wachtwoord = "";
     $herhaalWachtwoord = "";
 
-    if(!empty($_POST["email"])) {
+    if (!empty($_POST["email"])) {
         $email = $_POST["email"];
     } else {
         $error .= "Het e-mailadres moet ingevuld worden.";
     }
 
-    if(!empty($_POST["wachtwoord"]) && !empty($_POST["herhaalWachtwoord"])) {
-        if($_POST["wachtwoord"] == $_POST["herhaalWachtwoord"]) {
+    if (!empty($_POST["wachtwoord"]) && !empty($_POST["herhaalWachtwoord"])) {
+        if ($_POST["wachtwoord"] == $_POST["herhaalWachtwoord"]) {
             $wachtwoord = $_POST["wachtwoord"];
         } else {
             $error .= "Wachtwoorden komen niet overeen, probeer opnieuw.";
@@ -37,11 +37,11 @@ if(isset($_POST["register"])) {
 
     $rechten = "gebruiker";
 
-    if($error == "") {
+    if ($error == "") {
         try {
-        $gebruiker = new GebruikerService();
-        $gebruiker->voegGebruikerToe($email, $wachtwoord, $rechten);
-        $_SESSION["gebruiker"] = $rechten;
+            $gebruiker = new GebruikerService();
+            $gebruiker->voegGebruikerToe($email, $wachtwoord, $rechten);
+            $_SESSION["gebruiker"] = $rechten;
         } catch (OngeldigEmailadresException $e) {
             $error .= "Het ingevulde e-mailadres is geen geldig e-mailaders.";
         } catch (GebruikerBestaatAlException) {
@@ -50,8 +50,8 @@ if(isset($_POST["register"])) {
     }
 }
 
-if($_SESSION["gebruiker"] == "bezoeker") {
-include("Presentation/registerForm.php");
+if ($_SESSION["gebruiker"] == "bezoeker") {
+    include("Presentation/registerForm.php");
 } else {
     header("Location: main.php");
     exit(0);

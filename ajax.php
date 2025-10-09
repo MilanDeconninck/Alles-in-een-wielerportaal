@@ -13,8 +13,8 @@ if (isset($_POST["search"])) {
     $result = mysqli_query($con, $query);
 
     echo "<ul>";
-    if($result) {
-        if(mysqli_num_rows($result) > 0) {
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $name = htmlspecialchars($row["voornaam"] . ' ' . $row["familienaam"]);
                 $_SESSION["id"] = $row["id"];

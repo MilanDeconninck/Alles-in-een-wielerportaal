@@ -29,7 +29,8 @@ class GebruikerService
         return $gebruikers;
     }
 
-    public function controleLogin(string $email, string $wachtwoord) {
+    public function controleLogin(string $email, string $wachtwoord)
+    {
         $gebruiker = $this->gebruikerDAO->getGebruikerByEmail($email);
         if (empty($gebruiker)) {
             throw new GebruikerBestaatNietException();
@@ -40,22 +41,25 @@ class GebruikerService
         return $check;
     }
 
-    public function getId(string $email) {
+    public function getId(string $email)
+    {
         $gebruiker = $this->gebruikerDAO->getGebruikerByEmail($email);
         $gebruikerInfo = new Gebruiker((int) $gebruiker["id"], $gebruiker["emailadres"], $gebruiker["wachtwoord"], $gebruiker["rechten"]);
         return $gebruikerInfo->getId();
     }
 
-    public function voegGebruikerToe(string $email, string $wachtwoord, string $rechten) {
+    public function voegGebruikerToe(string $email, string $wachtwoord, string $rechten)
+    {
         $gebruiker = $this->gebruikerDAO->getGebruikerByEmail($email);
-        if(!empty($gebruiker)) {
+        if (!empty($gebruiker)) {
             throw new GebruikerBestaatAlException();
         }
         $wachtwoordhash = password_hash($wachtwoord, PASSWORD_DEFAULT);
-        $this->gebruikerDAO->create( $email, $wachtwoordhash, $rechten);
+        $this->gebruikerDAO->create($email, $wachtwoordhash, $rechten);
     }
 
-    public function getRechten(string $email) {
+    public function getRechten(string $email)
+    {
         $gebruiker = $this->gebruikerDAO->getGebruikerByEmail($email);
         $rechten = $gebruiker["rechten"];
         return $rechten;

@@ -13,13 +13,13 @@ require_once("header.php");
             <tr>
                 <td>Renner</td>
                 <td>
-                    <?php print($wielrenner->getVoornaam() . " " . $wielrenner->getFamilienaam()); ?>
+                    <?php print ($wielrenner->getVoornaam() . " " . $wielrenner->getFamilienaam()); ?>
                 </td>
             </tr>
             <tr>
                 <td>Contractjaar:</td>
                 <td>
-                    <?php print($jaar);?>
+                    <?php print ($jaar); ?>
                 </td>
             </tr>
             <tr>
@@ -27,9 +27,9 @@ require_once("header.php");
                 <td>
                     <select name="ploeg" required>
                         <?php
-                        foreach($ploegen as $ploeg) {
+                        foreach ($ploegen as $ploeg) {
                             ?>
-                            <option value="<?php print($ploeg->getId()) ?>"><?php print($ploeg->getNaam()); ?></option>
+                            <option value="<?php print ($ploeg->getId()) ?>"><?php print ($ploeg->getNaam()); ?></option>
                             <?php
                         }
                         ?>

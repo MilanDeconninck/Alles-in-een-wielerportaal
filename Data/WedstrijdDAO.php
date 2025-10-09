@@ -21,7 +21,8 @@ class WedstrijdDAO
         return $lijst;
     }
 
-    public function getWedstrijdById(int $id) {
+    public function getWedstrijdById(int $id)
+    {
         $sql = "select * from wedstrijden where id = :id order by startdatum";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);
@@ -49,7 +50,8 @@ class WedstrijdDAO
         $dbh = null;
     }
 
-    public function delete(int $id) {
+    public function delete(int $id)
+    {
         $sql = "delete from wedstrijden where id = :id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);

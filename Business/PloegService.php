@@ -7,23 +7,27 @@ namespace Business;
 use Data\PloegDAO;
 use Entities\Ploeg;
 
-class PloegService {
+class PloegService
+{
     private $ploegDAO;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->ploegDAO = new PloegDAO();
     }
 
-    public function getPloegById(int $id){
+    public function getPloegById(int $id)
+    {
         $ploegInfo = $this->ploegDAO->getPloegById($id);
         $ploeg = new Ploeg((int) $ploegInfo["id"], $ploegInfo["naam"], (int) $ploegInfo["plaatsId"], (int) $ploegInfo["fietsmerkId"]);
         return $ploeg;
     }
 
-    public function getPloegen() {
+    public function getPloegen()
+    {
         $ploegen = array();
         $ploegenInfo = $this->ploegDAO->getAll();
-        foreach($ploegenInfo as $ploeg) {
+        foreach ($ploegenInfo as $ploeg) {
             $ploegInfo = new Ploeg((int) $ploeg["id"], $ploeg["naam"], (int) $ploeg["plaatsId"], (int) $ploeg["fietsmerkId"]);
             array_push($ploegen, $ploegInfo);
         }

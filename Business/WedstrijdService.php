@@ -7,14 +7,17 @@ namespace Business;
 use Data\WedstrijdDAO;
 use Entities\Wedstrijd;
 
-class WedstrijdService{
+class WedstrijdService
+{
     private $wedstrijdDAO;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->wedstrijdDAO = new WedstrijdDAO();
     }
 
-    public function getWedstrijdById(int $id) {
+    public function getWedstrijdById(int $id)
+    {
         $wedstrijdInfo = $this->wedstrijdDAO->getWedstrijdById($id);
         $wedstrijd = new Wedstrijd((int) $wedstrijdInfo["id"], $wedstrijdInfo["naam"], (int) $wedstrijdInfo["plaatsId"], (float) $wedstrijdInfo["afstand"], (int) $wedstrijdInfo["typeId"], $wedstrijdInfo["startdatum"], $wedstrijdInfo["einddatum"]);
         return $wedstrijd;

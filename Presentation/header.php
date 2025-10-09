@@ -15,16 +15,16 @@ declare(strict_types=1);
 </head>
 
 <body>
-    <?php if($_SESSION["gebruiker"] == "bezoeker") {
+    <?php if ($_SESSION["gebruiker"] == "bezoeker") {
         ?>
         <a href="login.php">Login</a>
         <a href="register.php">Registreren</a>
         <?php
     } else {
-    ?>
+        ?>
         <a href="main.php">Opzoeken</a>
         <a href="logout.php">Logout</a>
-    <?php
+        <?php
     }
     if (isset($_SESSION["gebruiker"]) && $_SESSION["gebruiker"] == "admin") {
         ?>

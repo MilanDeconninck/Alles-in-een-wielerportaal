@@ -35,7 +35,8 @@ body {
     background-color: #f0f0f0;
 }
 
-.rennerInfo, .rennerInfo td {
+.rennerInfo,
+.rennerInfo td {
     vertical-align: top;
     width: 50%;
 }

@@ -20,12 +20,12 @@ require_once("header.php");
                 <h3>(<?php print ($leeftijd . " jaar, " . $geboortedatum); ?>) - <?php print ($plaats); ?></h3>
             </td>
             <td>
-                <h2>Carrière (<?php if($_SESSION["gebruiker"] == "admin") {
-                        ?>
+                <h2>Carrière (<?php if ($_SESSION["gebruiker"] == "admin") {
+                    ?>
                         <a href="wielrennerZoeken.php?action=pensioen">Pensioen</a> )
                         <?php
-                    }
-                    ?>
+                }
+                ?>
                 </h2>
                 <div>
                     <ul>
