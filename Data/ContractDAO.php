@@ -21,11 +21,13 @@ class ContractDAO
         return $lijst;
     }
 
-    public function getContractByRennerId(int $rennerId)
+    public function getContractenByRennerId(int $rennerId)
     {
-        $sql = "select * form contracten where rennerId = :rennerId";
+        $sql = "select * from contracten where rennerId = :rennerId order by startdatum";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $resultSet = $dbh->query($sql);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':rennerId' => $rennerId));
+        $resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $lijst = array();
         foreach ($resultSet as $rij) {
             array_push($lijst, $rij);

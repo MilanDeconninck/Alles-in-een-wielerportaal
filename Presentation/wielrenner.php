@@ -22,7 +22,16 @@ require_once("header.php");
             <td>
                 <h2>Carrière</h2>
                 <div>
-
+                    <ul>
+                        <?php foreach($carriere as $jaar) {
+                            ?>
+                            <li>
+                               <?php print($jaar); ?>
+                            </li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
                 </div>
             </td>
         </tr>

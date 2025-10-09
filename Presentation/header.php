@@ -22,8 +22,8 @@ declare(strict_types=1);
         <?php
     } else {
     ?>
-        <a href="logout.php">Logout</a>
         <a href="main.php">Opzoeken</a>
+        <a href="logout.php">Logout</a>
     <?php
     }
     if (isset($_SESSION["gebruiker"]) && $_SESSION["gebruiker"] == "admin") {
