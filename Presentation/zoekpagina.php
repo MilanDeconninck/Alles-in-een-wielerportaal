@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+require_once("header.php");
+?>
+
+<h1>Zoeken</h1>
+<form action="wielrennerZoeken.php" method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" name="input" id="search" placeholder="Search" autocomplete="off" required>
+                    <div id="display"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Zoeken" name="zoeken">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+
+</html>
