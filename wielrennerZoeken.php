@@ -24,6 +24,8 @@ $wedstrijdSvc = new WedstrijdService();
 
 if ($_SESSION["gebruiker"] == "gebruiker" || $_SESSION["gebruiker"] == "admin") {
 
+    $reedsContract = "";
+
     if (isset($_GET["action"]) && $_GET["action"] == "transfer") {
         $nieuwePloeg = (int) $_POST["ploeg"];
         $rennerId = (int) $_SESSION["id"];

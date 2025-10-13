@@ -36,6 +36,11 @@ class ContractDAO
         return $lijst;
     }
 
+    public function getContractByRennerAndPloegId(int $rennerId, int $ploegId) {
+        $sql = "select * from contracten where rennerId = :rennerId and ploegId = :ploegId";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+    }
+
     public function create(int $rennerId, int $ploegId, string $startdatum, string $einddatum)
     {
         $sql = "insert into contracten (rennerId, ploegId, startdatum, einddatum) values (:rennerId, :ploegId, :startdatum, :einddatum)";
