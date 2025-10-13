@@ -47,4 +47,15 @@ class ContractService
     {
         $this->contractDAO->create($rennerId, $ploegId, $startdatum, $einddatum);
     }
+
+    public function getContractenByPloegAndYear(int $ploegId, string $startdatum)
+    {
+        $contractenHuidig = array();
+        $contractenInfoHuidig = $this->contractDAO->getContractByPloegAndYear($ploegId, $startdatum);
+        foreach ($contractenInfoHuidig as $rij) {
+            $contract = new Contract((int) $rij["rennerId"], (int) $rij["ploegId"], $rij["startdatum"], $rij["einddatum"]);
+            array_push($contractenHuidig, $contract);
+        }
+        return $contractenHuidig;
+    }
 }

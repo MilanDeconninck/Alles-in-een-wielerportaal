@@ -1,0 +1,32 @@
+{% extends "header.twig" %}
+
+{% block content %}
+<table class="rennerInfo">
+    <tbody>
+        <tr>
+            <td>
+                <img src="Img/merkfoto.jpg" alt="Logo {{naam}}">
+            </td>
+            <td>
+                <h1>{{naam}}</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2>
+                    <p>Fietsmerk: {{merk}}</p>
+                    <p>{{plaats}} ({{land}})</p>
+                </h2>
+            </td>
+            <td>
+                <ul>
+                {% for renner in huidigeRenners %}
+                    <li>
+                        {{renner.voornaam}} {{renner.familienaam}} ({{renner.type}})
+                    </li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+
+{% endblock %}

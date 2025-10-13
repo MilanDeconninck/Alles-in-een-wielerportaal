@@ -39,9 +39,25 @@ class WielrennerDAO
         $stmt = $dbh->prepare($sql);
         $stmt->bindValue(':naam', $naam);
         $stmt->execute();
-        $id = $stmt->fetch(PDO::FETCH_ASSOC);
+        $renner = $stmt->fetch(PDO::FETCH_ASSOC);
         $dbh = null;
-        return $id;
+        return $renner;
+    }
+
+    public function getWielrennersPerJaar(int $ploegId, string $startdatum) {
+        $sql = "select * from wielrenners where ploegId = :ploegId and startdatum = :startdatum";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':ploegId', $ploegId);
+        $stmt->bindValue('startdatum', $startdatum);
+        $stmt->execute();
+        $renners = array();
+        $resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($resultSet as $rij) {
+            array_push($renners, $rij);
+        }
+        $dbh = null;
+        return $renners;
     }
 
     public function create(string $voornaam, string $familienaam, string $geboortedatum, int $typeId, int $plaatsId)

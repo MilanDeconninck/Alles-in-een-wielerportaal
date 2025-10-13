@@ -33,6 +33,17 @@ class PloegDAO
         return $ploeg;
     }
 
+    public function getPloegByNaam(string $naam) {
+        $sql = "select * from ploegen where naam = :naam";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':naam', $naam);
+        $stmt->execute();
+        $ploeg = $stmt->fetch(PDO::FETCH_ASSOC);
+        $dbh = null;
+        return $ploeg;
+    }
+
     public function create(string $naam, int $plaatsId, int $fietsmerkId)
     {
         $sql = "insert into ploegen (naam, plaatsId, fietsmerkId) values (naam, plaatsId, fietsmerkId)";

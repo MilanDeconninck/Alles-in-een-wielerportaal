@@ -37,4 +37,13 @@ class PloegService
         }
         return $ploegen;
     }
+
+    public function getPloegByNaam(string $naam) {
+                $ploegInfo = $this->ploegDAO->getPloegByNaam($naam);
+        if (empty($ploegInfo)) {
+            throw new PloegBestaatNietException();
+        }
+        $ploeg = new Ploeg((int) $ploegInfo["id"], $ploegInfo["naam"], (int) $ploegInfo["plaatsId"], (int) $ploegInfo["fietsmerkId"]);
+        return $ploeg;
+    }
 }
