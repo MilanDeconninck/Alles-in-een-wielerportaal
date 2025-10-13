@@ -194,6 +194,7 @@ if ($zoekenSoort == "ploeg") {
         "land" => $land,
         "merk" => $fietsmerk,
         "renners" => $renners,
-        "wedstrijden" => $wedstrijden
+        "wedstrijden" => $wedstrijden,
+        "gebruikersession" => $_SESSION["gebruiker"]
     ));
 }
