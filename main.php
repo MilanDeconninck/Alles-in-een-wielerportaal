@@ -17,4 +17,6 @@ $twig = new Environment($loader);
 
 unset($_SESSION["id"]);
 
-print $twig->render("zoekpagina.twig");
+print $twig->render("zoekpagina.twig", array(
+    "gebruikersession" => $_SESSION["gebruiker"]
+));

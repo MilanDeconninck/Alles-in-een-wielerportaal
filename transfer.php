@@ -27,7 +27,7 @@ $jaar = date("Y") + 1;
 $ploegen = $ploegSvc->getPloegen();
 
 print $twig->render("transferForm.twig", array(
-    "wielrenner"=>$wielrenner,
-    "jaar"=>$jaar,
-    "ploegen"=>$ploegen
+    "wielrenner" => $wielrenner,
+    "jaar" => $jaar,
+    "ploegen" => $ploegen
 ));

@@ -53,8 +53,8 @@ if (isset($_POST["login"])) {
 
 if ($_SESSION["gebruiker"] == "bezoeker") {
     print $twig->render("loginForm.twig", array(
-        "error"=>$error,
-        "gebruikersession"=>$_SESSION["gebruiker"]
+        "error" => $error,
+        "gebruikersession" => $_SESSION["gebruiker"]
     ));
 } else {
     header("Location: main.php");

@@ -61,8 +61,8 @@ if (isset($_POST["register"])) {
 
 if ($_SESSION["gebruiker"] == "bezoeker") {
     print $twig->render("registerForm.twig", array(
-        "error"=>$error,
-        "gebruikersession"=>$_SESSION["gebruiker"]
+        "error" => $error,
+        "gebruikersession" => $_SESSION["gebruiker"]
     ));
 } else {
     header("Location: main.php");

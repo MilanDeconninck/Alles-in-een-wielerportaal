@@ -17,7 +17,6 @@ if (isset($_POST["search"])) {
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $name = htmlspecialchars($row["voornaam"] . ' ' . $row["familienaam"]);
-                $_SESSION["id"] = $row["id"];
                 echo "<li onclick=\"fill('{$name}')\">" . $name . "</li>";
             }
         } else {
@@ -26,3 +25,4 @@ if (isset($_POST["search"])) {
     }
     echo "</ul>";
 }
+exit(0);

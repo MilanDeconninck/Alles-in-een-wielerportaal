@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if error is not empty %}
-{{error}}
+<div class="error">{{error}}</div>
 {% endif %}
 <table class="rennerInfo">
     <tbody>
@@ -17,26 +17,26 @@
         <tr>
             <td>
                 <h2>Specialiteit: {{type}}</h2>
-                <h3>({{leeftijd}} jaar, {{geboortedatum}}) - {{plaats}}</h3>
+                <h3>({{leeftijd}} jaar, {{geboortedatum}}) - {{plaats}} ({{land}})</h3>
             </td>
             <td>
-                <h2>Carrière (
+                <h2>Carrière 
                     {% if gebruikersession == 'admin' %}
-                    <a href="wielrennerZoeken.php?action=pensioen">Pensioen</a>
+                    (<a href="wielrennerZoeken.php?action=pensioen">Pensioen</a>)
                     {% endif %}
-                    )
+                    
                 </h2>
                 <div>
                     <ul>
                         {% for jaar in carriere %}
-                            <li>
-                                {{jaar}}
-                            </li>
+                        <li>
+                            {{jaar}}
+                        </li>
                         {% endfor %}
                         {% if gebruikersession == 'admin' %}
-                            <li>
-                                <a href="transfer.php">Transfer</a>
-                            </li>
+                        <li>
+                            <a href="transfer.php">Transfer</a>
+                        </li>
                         {% endif %}
                     </ul>
                 </div>
@@ -44,15 +44,16 @@
         </tr>
         <tr>
             <td>
+                <h2>Wedstrijden:</h2>
                 <ul>
                     {% if deelnamesRenner is not empty %}
                     {% for deelname in deelnamesRenner %}
-                            <li>
-                                {{deelname}}
-                            </li>
+                    <li>
+                        {{deelname}}
+                    </li>
                     {% endfor %}
                     {% else %}
-                        Renner heeft nog niet deelgenomen aan een wedstrijd.
+                    Renner heeft nog niet deelgenomen aan een wedstrijd.
                     {% endif %}
                 </ul>
             </td>

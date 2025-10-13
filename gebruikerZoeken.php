@@ -34,7 +34,7 @@ if ($error == "") {
 }
 
 print $twig->render("gebruikerOpzoeken.twig", array(
-    "error"=>$error,
-    "gebruiker"=>$gebruiker,
-    "gebruikersession"=>$_SESSION["gebruiker"]
+    "error" => $error,
+    "gebruiker" => $gebruiker,
+    "gebruikersession" => $_SESSION["gebruiker"]
 ));

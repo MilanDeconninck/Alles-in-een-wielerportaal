@@ -38,76 +38,84 @@ $wedstrijdSvc = new WedstrijdService();
 
 $error = "";
 
+if (isset($_POST["input"])) {
+    $naamFull = $_POST["input"];
+    $rennerForId = $wielrennerSvc->getIdFromFullName($naamFull);
+    $id = $rennerForId->getId();
+    $_SESSION["id"] = $id;
+}
 if (isset($_SESSION["id"])) {
+    $sessionId = $_SESSION["id"];
     if (!isset($_SESSION["gebruiker"]) || $_SESSION["gebruiker"] == "bezoeker") {
         header("Location: login.php");
     } elseif ($_SESSION["gebruiker"] == "gebruiker" || $_SESSION["gebruiker"] == "admin") {
-        $rennerId = (int) $_SESSION["id"];
-        $startdatum = date("Y") + 1 . "-01-01";
-        $einddatum = date("Y") + 1 . "12-31";
-        $reedsContract = $contractSvc->contractCheck($rennerId, $startdatum);
-        if (isset($_GET["action"]) && $_GET["action"] == "transfer") {
-            $nieuwePloeg = (int) $_POST["ploeg"];
-            if ($reedsContract) {
-                $contractSvc->transferRenner($nieuwePloeg, $rennerId, $startdatum);
-            } else {
-                $contractSvc->contractToevoegen($rennerId, $nieuwePloeg, $startdatum, $einddatum);
+        if (isset($_POST["input"])) {
+            $startdatum = date("Y") + 1 . "-01-01";
+            $einddatum = date("Y") + 1 . "12-31";
+            $reedsContract = $contractSvc->contractCheck($sessionId, $startdatum);
+            if (isset($_GET["action"]) && $_GET["action"] == "transfer") {
+                $nieuwePloeg = (int) $_POST["ploeg"];
+                if ($reedsContract) {
+                    $contractSvc->transferRenner($nieuwePloeg, $sessionId, $startdatum);
+                } else {
+                    $contractSvc->contractToevoegen($sessionId, $nieuwePloeg, $startdatum, $einddatum);
+                }
             }
-        }
-        if (isset($_GET["action"]) && $_GET["action"] == "pensioen") {
-            $contractSvc->pensioen($rennerId, $startdatum);
-        }
+            if (isset($_GET["action"]) && $_GET["action"] == "pensioen") {
+                $contractSvc->pensioen($sessionId, $startdatum);
+            }
 
-        $id = (int) $_SESSION["id"];
-        if ($error == "") {
-            try {
-                $wielrenner = $wielrennerSvc->getWielrennerById($id);
-                $naam = $wielrenner->getVoornaam() . " " . $wielrenner->getFamilienaam();
-                $typeId = (int) $wielrenner->getTypeId();
-                $typeInfo = $wedstrijdtypeSvc->getTypeById($typeId);
-                $type = $typeInfo->getRennerType();
-                $geboortedatumTable = $wielrenner->getGeboortedatum();
-                $geboortedatum = date("d-m-Y", strtotime($geboortedatumTable));
-                $geboortejaar = date("Y", strtotime($geboortedatumTable));
-                $leeftijd = date("Y") - $geboortejaar;
-                $plaatsId = (int) $wielrenner->getPlaatsId();
-                $plaatsInfo = $plaatsSvc->getPlaatsById($plaatsId);
-                $plaats = $plaatsInfo->getStad();
-                $rennerId = $wielrenner->getId();
-                $contracten = $contractSvc->getContractenByRennerId($rennerId);
-                $carriere = array();
-                foreach ($contracten as $contract) {
-                    $ploegInfo = $ploegSvc->getPloegById($contract->getPloegId());
-                    $ploeg = $ploegInfo->getNaam();
-                    $jaar = date("Y", strtotime($contract->getStartdatum()));
-                    $contractPerJaar = $jaar . ": " . $ploeg;
-                    array_push($carriere, $contractPerJaar);
-                }
-                $deelnames = $deelnemerSvc->getDeelnamesByRennerId($rennerId);
-                $deelnamesRenner = array();
-                foreach ($deelnames as $deelname) {
-                    $wedstrijdId = $deelname->getWedstrijdId();
-                    $wedstrijdInfo = $wedstrijdSvc->getWedstrijdById($wedstrijdId);
-                    $wedstrijdNaam = $wedstrijdInfo->getNaam();
-                    $wedstrijdStart = $wedstrijdInfo->getStartdatum();
-                    $wedstrijdEind = $wedstrijdInfo->getEinddatum();
-                    if ($wedstrijdStart == $wedstrijdEind) {
-                        $wedstrijd = $wedstrijdNaam . " (" . date("d-m-Y", strtotime($wedstrijdStart)) . ")";
-                    } else {
-                        $wedstrijd = $wedstrijdNaam . " (" . date("d-m-Y", strtotime($wedstrijdStart)) . " - " . date("d-m-Y", strtotime($wedstrijdEind)) . ")";
+            if ($error == "") {
+                try {
+                    $wielrenner = $wielrennerSvc->getWielrennerById($sessionId);
+                    $naam = $wielrenner->getVoornaam() . " " . $wielrenner->getFamilienaam();
+                    $typeId = (int) $wielrenner->getTypeId();
+                    $typeInfo = $wedstrijdtypeSvc->getTypeById($typeId);
+                    $type = $typeInfo->getRennerType();
+                    $geboortedatumTable = $wielrenner->getGeboortedatum();
+                    $geboortedatum = date("d-m-Y", strtotime($geboortedatumTable));
+                    $geboortejaar = date("Y", strtotime($geboortedatumTable));
+                    $leeftijd = date("Y") - $geboortejaar;
+                    $plaatsId = (int) $wielrenner->getPlaatsId();
+                    $plaatsInfo = $plaatsSvc->getPlaatsById($plaatsId);
+                    $plaats = $plaatsInfo->getStad();
+                    $land = $plaatsInfo->getLand();
+                    $rennerId = $wielrenner->getId();
+                    $contracten = $contractSvc->getContractenByRennerId($rennerId);
+                    $carriere = array();
+                    foreach ($contracten as $contract) {
+                        $ploegInfo = $ploegSvc->getPloegById($contract->getPloegId());
+                        $ploeg = $ploegInfo->getNaam();
+                        $jaar = date("Y", strtotime($contract->getStartdatum()));
+                        $contractPerJaar = $jaar . ": " . $ploeg;
+                        array_push($carriere, $contractPerJaar);
                     }
-                    array_push($deelnamesRenner, $wedstrijd);
+                    $deelnames = $deelnemerSvc->getDeelnamesByRennerId($rennerId);
+                    $deelnamesRenner = array();
+                    foreach ($deelnames as $deelname) {
+                        $wedstrijdId = $deelname->getWedstrijdId();
+                        $wedstrijdInfo = $wedstrijdSvc->getWedstrijdById($wedstrijdId);
+                        $wedstrijdNaam = $wedstrijdInfo->getNaam();
+                        $wedstrijdStart = $wedstrijdInfo->getStartdatum();
+                        $wedstrijdEind = $wedstrijdInfo->getEinddatum();
+                        if ($wedstrijdStart == $wedstrijdEind) {
+                            $wedstrijd = $wedstrijdNaam . " (" . date("d-m-Y", strtotime($wedstrijdStart)) . ")";
+                        } else {
+                            $wedstrijd = $wedstrijdNaam . " (" . date("d-m-Y", strtotime($wedstrijdStart)) . " - " . date("d-m-Y", strtotime($wedstrijdEind)) . ")";
+                        }
+                        array_push($deelnamesRenner, $wedstrijd);
+                    }
+                } catch (RennerBestaatNietException $e) {
+                    $error .= "Deze renner bestaat niet!";
+                } catch (TypeBestaatNietException $e) {
+                    $error .= "Type bestaat niet!";
+                } catch (WedstrijdBestaatNietException $e) {
+                    $error .= "Wedstrijd bestaat niet!";
+                } catch (PloegBestaatNietException $e) {
+                    $error .= "Ploeg bestaat niet!";
+                } catch (PlaatsBestaatNietException $e) {
+                    $error .= "Plaats bestaat niet!";
                 }
-            } catch (RennerBestaatNietException $e) {
-                $error .= "Deze renner bestaat niet!";
-            } catch (TypeBestaatNietException $e) {
-                $error .= "Type bestaat niet!";
-            } catch (WedstrijdBestaatNietException $e) {
-                $error .= "Wedstrijd bestaat niet!";
-            } catch (PloegBestaatNietException $e) {
-                $error .= "Ploeg bestaat niet!";
-            } catch (PlaatsBestaatNietException $e) {
-                $error .= "Plaats bestaat niet!";
             }
         }
     }
@@ -116,12 +124,14 @@ if (isset($_SESSION["id"])) {
 }
 
 print $twig->render("wielrenner.twig", array(
-    "error"=>$error,
-    "naam"=>$naam,
-    "leeftijd"=>$leeftijd,
-    "geboortedatum"=>$geboortedatum,
-    "plaats"=>$plaats,
-    "gebruikersession"=>$_SESSION["gebruiker"],
-    "deelnamesRenner"=>$deelnamesRenner,
-    "carriere"=>$carriere
+    "error" => $error,
+    "naam" => $naam,
+    "leeftijd" => $leeftijd,
+    "geboortedatum" => $geboortedatum,
+    "plaats" => $plaats,
+    "gebruikersession" => $_SESSION["gebruiker"],
+    "deelnamesRenner" => $deelnamesRenner,
+    "carriere" => $carriere,
+    "type" => $type,
+    "land" => $land
 ));

@@ -3,32 +3,32 @@
 {% block content %}
 <h1>Login</h1>
 {% if error is not empty %}
-    {{error}}
+<div class="error">{{error}}</div>
 {% endif %}
 {% if gebruikersession == 'bezoeker' %}
 
-    <form action="login.php" method="post">
-        <table>
-            <tbody>
-                <tr>
-                    <td>E-maildres:</td>
-                    <td>
-                        <input type="email" name="email" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Wachtwoord:</td>
-                    <td>
-                        <input type="password" name="wachtwoord" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="submit" value="Inloggen" name="login">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
+<form action="login.php" method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>E-maildres:</td>
+                <td>
+                    <input type="email" name="email" required>
+                </td>
+            </tr>
+            <tr>
+                <td>Wachtwoord:</td>
+                <td>
+                    <input type="password" name="wachtwoord" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Inloggen" name="login">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
 {% endif %}
 {% endblock %}

@@ -26,4 +26,10 @@ class WielrennerService
         $wielrenner = new Wielrenner((int) $wielrennerInfo["id"], $wielrennerInfo["voornaam"], $wielrennerInfo["familienaam"], $wielrennerInfo["geboortedatum"], (int) $wielrennerInfo["typeId"], $wielrennerInfo["plaatsId"]);
         return $wielrenner;
     }
+
+    public function getIdFromFullName(string $naam) {
+        $renner = $this->wielrennerDAO->getWielrennerIdByFullName($naam);
+        $rennerInfo = new Wielrenner((int) $renner["id"], $renner["voornaam"], $renner["familienaam"], $renner["geboortedatum"], (int) $renner["typeId"], (int) $renner["plaatsId"]);
+        return $rennerInfo;
+    }
 }

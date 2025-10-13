@@ -52,6 +52,12 @@ body {
     border-collapse: collapse;
 }
 
-.fout {
+.error {
     color: #ff0000;
+}
+
+ul {
+    list-style: none;    
+    margin: 0;
+    padding: 0;
 }

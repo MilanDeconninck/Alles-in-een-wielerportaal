@@ -33,6 +33,17 @@ class WielrennerDAO
         return $wielrennerInfo;
     }
 
+    public function getWielrennerIdByFullName(string $naam) {
+        $sql = "select * from wielrenners where CONCAT(voornaam, ' ', familienaam) like :naam";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':naam', $naam);
+        $stmt->execute();
+        $id = $stmt->fetch(PDO::FETCH_ASSOC);
+        $dbh = null;
+        return $id;
+    }
+
     public function create(string $voornaam, string $familienaam, string $geboortedatum, int $typeId, int $plaatsId)
     {
         $sql = "insert into wielrenners (voornaam, familienaam, geboortedatum, typeId, plaatsId) values (:voornaam, :familienaam, :geboortedatum, :typeId, :plaatsId";
