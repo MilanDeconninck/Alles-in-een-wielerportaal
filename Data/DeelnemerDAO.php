@@ -37,6 +37,22 @@ class DeelnemerDAO
         return $deelnames;
     }
 
+    public function getDeelnamesByPloegId(int $ploegId)
+    {
+        $sql = "select * from deelnemers where ploegId = :ploegId group by wedstrijdId order by id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':ploegId', $ploegId);
+        $stmt->execute();
+        $deelnames = array();
+        $resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($resultSet as $rij) {
+            array_push($deelnames, $rij);
+        }
+        $dbh = null;
+        return $deelnames;
+    }
+
     public function create(int $wedstrijdId, int $rennerId, int $ploegId)
     {
         $sql = "insert into deelnemers (wedstrijdId, rennerId, ploegId) values (:wedstrijdId, :rennerId, :ploegId)";

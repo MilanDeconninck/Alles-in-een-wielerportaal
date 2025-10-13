@@ -133,20 +133,20 @@ if ($zoekenSoort == "renner") {
     }
 
     print $twig->render("wielrenner.twig", array(
-    "error" => $error,
-    "naam" => $naam,
-    "leeftijd" => $leeftijd,
-    "geboortedatum" => $geboortedatum,
-    "plaats" => $plaats,
-    "gebruikersession" => $_SESSION["gebruiker"],
-    "deelnamesRenner" => $deelnamesRenner,
-    "carriere" => $carriere,
-    "type" => $type,
-    "land" => $land
-));
+        "error" => $error,
+        "naam" => $naam,
+        "leeftijd" => $leeftijd,
+        "geboortedatum" => $geboortedatum,
+        "plaats" => $plaats,
+        "gebruikersession" => $_SESSION["gebruiker"],
+        "deelnamesRenner" => $deelnamesRenner,
+        "carriere" => $carriere,
+        "type" => $type,
+        "land" => $land
+    ));
 }
 
-if($zoekenSoort == "ploeg") {
+if ($zoekenSoort == "ploeg") {
     $ploegInfo = $ploegSvc->getPloegByNaam($zoekterm);
     $naam = $ploegInfo->getNaam();
     $plaatsId = $ploegInfo->getPlaatsId();
@@ -158,21 +158,42 @@ if($zoekenSoort == "ploeg") {
     $fietsmerk = $fietsmerkInfo->getNaam();
     $ploegId = $ploegInfo->getId();
     $huidigeStartdatum = date("Y") + 1 . "-01-01";
-    $renners = $wielrennerSvc->getHuidigeRenners($ploegId, $huidigeStartdatum);
-    $huidigeRenners = array();
-    foreach($huidigeRenners as $renner) {
-        $voornaam = $renner->getVoornaam();
-        $familienaam = $renner->getFamilienaam();
-        $typeId = $renner->getTypeId();
-        $type = $wedstrijdtypeSvc->getTypeById($typeId);
+    $contractenHuidig = $contractSvc->getContractenByPloegAndYear($ploegId, $huidigeStartdatum);
+    $renners = array();
+    foreach ($contractenHuidig as $contract) {
+        $rennerId = $contract->getRennerId();
+        $rennerInfo = $wielrennerSvc->getWielrennerById($rennerId);
+        $voornaam = $rennerInfo->getVoornaam();
+        $familienaam = $rennerInfo->getFamilienaam();
+        $typeId = $rennerInfo->getTypeId();
+        $typeInfo = $wedstrijdtypeSvc->getTypeById($typeId);
+        $type = $typeInfo->getRennerType();
         $renner = $voornaam . " " . $familienaam . " (" . $type . ")";
-        array_push($huidigeRenners, $renner);
-     }
+        array_push($renners, $renner);
+    }
+    $deelnames = $deelnemerSvc->getDeelnamesByPloegId($ploegId);
+    $wedstrijden = array();
+    foreach ($deelnames as $deelname) {
+        $wedstrijdId = $deelname->getWedstrijdId();
+        $wedstrijdInfo = $wedstrijdSvc->getWedstrijdById($wedstrijdId);
+        $wedstrijdNaam = $wedstrijdInfo->getNaam();
+        $wedstrijdStart = $wedstrijdInfo->getStartdatum();
+        $wedstrijdEind = $wedstrijdInfo->getEinddatum();
+        if ($wedstrijdStart == $wedstrijdEind) {
+            $wedstrijd = $wedstrijdNaam . " (" . date("d-m-Y", strtotime($wedstrijdStart)) . ")";
+        } else {
+            $wedstrijd = $wedstrijdNaam . " (" . date("d-m-Y", strtotime($wedstrijdStart)) . " - " . date("d-m-Y", strtotime($wedstrijdEind)) . ")";
+        }
+        array_push($wedstrijden, $wedstrijd);
+    }
+
+
     print $twig->render("ploeg.twig", array(
         "naam" => $naam,
         "plaats" => $plaats,
         "land" => $land,
         "merk" => $fietsmerk,
-        "huidigeRenners" => $huidigeRenners
+        "renners" => $renners,
+        "wedstrijden" => $wedstrijden
     ));
 }

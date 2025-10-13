@@ -24,4 +24,15 @@ class DeelnemerService
         }
         return $deelnames;
     }
+
+        public function getDeelnamesByPloegId(int $ploegId)
+    {
+        $deelnames = array();
+        $deelnamesInfo = $this->deelnemerDAO->getDeelnamesByPloegId($ploegId);
+        foreach ($deelnamesInfo as $rij) {
+            $deelname = new Deelnemer((int) $rij["id"], (int) $rij["wedstrijdId"], (int) $rij["rennerId"], (int) $rij["ploegId"]);
+            array_push($deelnames, $deelname);
+        }
+        return $deelnames;
+    }
 }

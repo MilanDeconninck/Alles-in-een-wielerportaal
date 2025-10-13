@@ -20,13 +20,28 @@
             </td>
             <td>
                 <ul>
-                {% for renner in huidigeRenners %}
+                    <h2>Renners 2026:</h2>
+                    {% for renner in renners %}
                     <li>
-                        {{renner.voornaam}} {{renner.familienaam}} ({{renner.type}})
+                        {{renner}}
                     </li>
-                {% endfor %}
+                    {% endfor %}
                 </ul>
             </td>
         </tr>
+        <tr>
+            <td>
+                <ul>
+                    <h2>Wedstrijden</h2>
+                    {% for wedstrijd in wedstrijden %}
+                    <li>
+                        {{wedstrijd}}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 {% endblock %}
