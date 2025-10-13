@@ -36,4 +36,15 @@ class ContractService
     {
         $this->contractDAO->delete($rennerId, $startdatum);
     }
+
+    public function contractCheck(int $rennerId, string $startdatum)
+    {
+        $reedsContract = $this->contractDAO->getContractByRennerAndYear($rennerId, $startdatum);
+        return $reedsContract;
+    }
+
+    public function contractToevoegen(int $rennerId, int $ploegId, string $startdatum, string $einddatum)
+    {
+        $this->contractDAO->create($rennerId, $ploegId, $startdatum, $einddatum);
+    }
 }

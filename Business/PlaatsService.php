@@ -5,6 +5,7 @@ namespace Business;
 
 use Data\PlaatsDAO;
 use Entities\Plaats;
+use Exceptions\PlaatsBestaatNietException;
 
 class PlaatsService
 {
@@ -18,6 +19,9 @@ class PlaatsService
     public function getPlaatsById(int $id)
     {
         $plaatsInfo = $this->plaatsDAO->getPlaatsById($id);
+        if (empty($plaatsInfo)) {
+            throw new PlaatsBestaatNietException();
+        }
         $plaats = new Plaats((int) $plaatsInfo["id"], $plaatsInfo["stad"], $plaatsInfo["land"]);
         return $plaats;
     }

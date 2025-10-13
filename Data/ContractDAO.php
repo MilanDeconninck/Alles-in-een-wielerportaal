@@ -36,9 +36,19 @@ class ContractDAO
         return $lijst;
     }
 
-    public function getContractByRennerAndPloegId(int $rennerId, int $ploegId) {
-        $sql = "select * from contracten where rennerId = :rennerId and ploegId = :ploegId";
+    public function getContractByRennerAndYear(int $rennerId, string $startdatum) {
+        $sql = "select * from contracten where rennerId = :rennerId and startdatum = :startdatum";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':rennerId' => $rennerId, ':startdatum' => $startdatum));
+        $contract = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($contract == null){
+            $reedsContract = false;
+        } else {
+            $reedsContract = true;
+        }
+        $dbh = null;
+        return $reedsContract;
     }
 
     public function create(int $rennerId, int $ploegId, string $startdatum, string $einddatum)

@@ -6,6 +6,7 @@ namespace Business;
 
 use Data\WielrennerDAO;
 use Entities\Wielrenner;
+use Exceptions\RennerBestaatNietException;
 
 class WielrennerService
 {
@@ -19,6 +20,9 @@ class WielrennerService
     public function getWielrennerById(int $id)
     {
         $wielrennerInfo = $this->wielrennerDAO->getWielrennerById($id);
+        if (empty($wielrennerInfo)) {
+            throw new RennerBestaatNietException();
+        }
         $wielrenner = new Wielrenner((int) $wielrennerInfo["id"], $wielrennerInfo["voornaam"], $wielrennerInfo["familienaam"], $wielrennerInfo["geboortedatum"], (int) $wielrennerInfo["typeId"], $wielrennerInfo["plaatsId"]);
         return $wielrenner;
     }

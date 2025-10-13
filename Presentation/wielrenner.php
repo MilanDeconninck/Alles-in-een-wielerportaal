@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 require_once("header.php");
 ?>
+
+<?php if ($error != "") {
+    ?>
+    <div class="fout"><?php print ($error); ?></div>
+    <?php
+}
+?>
 <table class="rennerInfo">
     <tbody>
         <tr>
@@ -53,11 +60,18 @@ require_once("header.php");
         <tr>
             <td>
                 <ul>
-                    <?php foreach ($deelnamesRenner as $deelname) {
+                    <?php
+                    if (!empty($deelnamesRenner)) {
+                        foreach ($deelnamesRenner as $deelname) {
+                            ?>
+                            <li>
+                                <?php print ($deelname); ?>
+                            </li>
+                            <?php
+                        }
+                    } else {
                         ?>
-                        <li>
-                            <?php print ($deelname); ?>
-                        </li>
+                        Renner heeft nog niet deelgenomen aan een wedstrijd.
                         <?php
                     }
                     ?>

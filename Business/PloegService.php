@@ -6,6 +6,7 @@ namespace Business;
 
 use Data\PloegDAO;
 use Entities\Ploeg;
+use Exceptions\PloegBestaatNietException;
 
 class PloegService
 {
@@ -19,6 +20,9 @@ class PloegService
     public function getPloegById(int $id)
     {
         $ploegInfo = $this->ploegDAO->getPloegById($id);
+        if (empty($ploegInfo)) {
+            throw new PloegBestaatNietException();
+        }
         $ploeg = new Ploeg((int) $ploegInfo["id"], $ploegInfo["naam"], (int) $ploegInfo["plaatsId"], (int) $ploegInfo["fietsmerkId"]);
         return $ploeg;
     }
