@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 session_start();
 
+spl_autoload_register();
+
 require_once("bootstrap.php");
+require_once("vendor/autoload.php");
+
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 use Business\GebruikerService;
 use Exceptions\GebruikerBestaatNietException;
+
+$loader = new FilesystemLoader('Presentation');
+$twig = new Environment($loader);
 
 $error = "";
 $_SESSION["gebruiker"] = "bezoeker";
@@ -43,7 +52,10 @@ if (isset($_POST["login"])) {
 }
 
 if ($_SESSION["gebruiker"] == "bezoeker") {
-    include("Presentation/loginForm.php");
+    print $twig->render("loginForm.twig", array(
+        "error"=>$error,
+        "gebruikersession"=>$_SESSION["gebruiker"]
+    ));
 } else {
     header("Location: main.php");
     exit(0);

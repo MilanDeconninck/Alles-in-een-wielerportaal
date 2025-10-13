@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 session_start();
 
+spl_autoload_register();
+
+require_once("bootstrap.php");
+require_once("vendor/autoload.php");
+
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+
 use Business\WielrennerService;
 use Business\PloegService;
 
-require_once("bootstrap.php");
+$loader = new FilesystemLoader('Presentation');
+$twig = new Environment($loader);
 
 $wielrennerSvc = new WielrennerService();
 $ploegSvc = new PloegService();
@@ -17,4 +26,8 @@ $wielrenner = $wielrennerSvc->getWielrennerById($rennerId);
 $jaar = date("Y") + 1;
 $ploegen = $ploegSvc->getPloegen();
 
-include("Presentation/transferForm.php");
+print $twig->render("transferForm.twig", array(
+    "wielrenner"=>$wielrenner,
+    "jaar"=>$jaar,
+    "ploegen"=>$ploegen
+));

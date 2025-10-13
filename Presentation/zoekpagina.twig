@@ -1,10 +1,6 @@
-<?php
+{% extends "header.twig" %}
 
-declare(strict_types=1);
-
-require_once("header.php");
-?>
-
+{% block content %}
 <h1>Zoeken</h1>
 <form action="wielrennerZoeken.php" method="post">
     <table>
@@ -23,6 +19,4 @@ require_once("header.php");
         </tbody>
     </table>
 </form>
-</body>
-
-</html>
+{% endblock %}

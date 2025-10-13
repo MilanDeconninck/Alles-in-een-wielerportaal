@@ -1,0 +1,62 @@
+{% extends "header.twig" %}
+
+{% block content %}
+{% if error is not empty %}
+{{error}}
+{% endif %}
+<table class="rennerInfo">
+    <tbody>
+        <tr>
+            <td>
+                <img src="Img/profielfoto.jpg" alt="profielfoto {{naam}}">
+            </td>
+            <td>
+                <h1>{{naam}}</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2>Specialiteit: {{type}}</h2>
+                <h3>({{leeftijd}} jaar, {{geboortedatum}}) - {{plaats}}</h3>
+            </td>
+            <td>
+                <h2>Carrière (
+                    {% if gebruikersession == 'admin' %}
+                    <a href="wielrennerZoeken.php?action=pensioen">Pensioen</a>
+                    {% endif %}
+                    )
+                </h2>
+                <div>
+                    <ul>
+                        {% for jaar in carriere %}
+                            <li>
+                                {{jaar}}
+                            </li>
+                        {% endfor %}
+                        {% if gebruikersession == 'admin' %}
+                            <li>
+                                <a href="transfer.php">Transfer</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    {% if deelnamesRenner is not empty %}
+                    {% for deelname in deelnamesRenner %}
+                            <li>
+                                {{deelname}}
+                            </li>
+                    {% endfor %}
+                    {% else %}
+                        Renner heeft nog niet deelgenomen aan een wedstrijd.
+                    {% endif %}
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <title>Milan's wielerhoekje</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="Presentation/wielrennen.css">
+    <link rel="icon" href="Img/fietsIcoon.png">
+</head>
+
+<body>
+    {% if gebruikersession == 'bezoeker' %}
+    <a href="login.php">Login</a>
+    <a href="register.php">Registreren</a>
+    {% else %}
+    <a href="main.php">Opzoeken</a>
+    <a href="logout.php">Logout</a>
+    {% endif %}
+    {% if gebruikersession is defined and gebruikersession == 'admin' %}
+    <a href="gebruikerZoeken.php">Gebruiker zoeken</a>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+</body>
+
+</html>

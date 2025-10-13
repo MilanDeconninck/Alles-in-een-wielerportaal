@@ -1,18 +1,12 @@
-<?php
+{% extends "header.twig" %}
 
-declare(strict_types=1);
-
-require_once("header.php");
-?>
+{% block content %}
 <h1>Login</h1>
-<?php
-if ($error != "") {
-    ?>
-    <div class="fout"><?php print ($error); ?></div>
-    <?php
-}
-if ($_SESSION["gebruiker"] == "bezoeker") {
-    ?>
+{% if error is not empty %}
+    {{error}}
+{% endif %}
+{% if gebruikersession == 'bezoeker' %}
+
     <form action="login.php" method="post">
         <table>
             <tbody>
@@ -36,9 +30,5 @@ if ($_SESSION["gebruiker"] == "bezoeker") {
             </tbody>
         </table>
     </form>
-    <?php
-}
-?>
-</body>
-
-</html>
+{% endif %}
+{% endblock %}

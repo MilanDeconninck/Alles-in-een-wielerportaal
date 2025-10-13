@@ -1,13 +1,16 @@
 <?php
 
 declare(strict_types=1);
-use Exceptions\PlaatsBestaatNietException;
-use Exceptions\PloegBestaatNietException;
-use Exceptions\RennerBestaatNietException;
-use Exceptions\TypeBestaatNietException;
-use Exceptions\WedstrijdBestaatNietException;
 
 session_start();
+
+spl_autoload_register();
+
+require_once("bootstrap.php");
+require_once("vendor/autoload.php");
+
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 use Business\WielrennerService;
 use Business\WedstrijdtypeService;
@@ -16,8 +19,14 @@ use Business\ContractService;
 use Business\PloegService;
 use Business\DeelnemerService;
 use Business\WedstrijdService;
+use Exceptions\PlaatsBestaatNietException;
+use Exceptions\PloegBestaatNietException;
+use Exceptions\RennerBestaatNietException;
+use Exceptions\TypeBestaatNietException;
+use Exceptions\WedstrijdBestaatNietException;
 
-require_once("bootstrap.php");
+$loader = new FilesystemLoader('Presentation');
+$twig = new Environment($loader);
 
 $wielrennerSvc = new WielrennerService();
 $wedstrijdtypeSvc = new WedstrijdtypeService();
@@ -106,4 +115,13 @@ if (isset($_SESSION["id"])) {
     header("Location: main.php");
 }
 
-include("Presentation/wielrenner.php");
+print $twig->render("wielrenner.twig", array(
+    "error"=>$error,
+    "naam"=>$naam,
+    "leeftijd"=>$leeftijd,
+    "geboortedatum"=>$geboortedatum,
+    "plaats"=>$plaats,
+    "gebruikersession"=>$_SESSION["gebruiker"],
+    "deelnamesRenner"=>$deelnamesRenner,
+    "carriere"=>$carriere
+));

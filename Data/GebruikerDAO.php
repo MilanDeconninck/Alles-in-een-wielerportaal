@@ -10,7 +10,7 @@ class GebruikerDAO
 {
     public function getAll(): array
     {
-        $sql = "select * from gebruikers";
+        $sql = "select * from gebruikers order by rechten";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
         $lijst = array();

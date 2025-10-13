@@ -1,11 +1,6 @@
-<?php
+{% extends "header.twig" %}
 
-declare(strict_types=1);
-
-require_once("header.php");
-
-?>
-
+{% block content %}
 <h1>Transfer</h1>
 <form action="wielrennerZoeken.php?action=transfer" method="post">
     <table>
@@ -13,26 +8,22 @@ require_once("header.php");
             <tr>
                 <td>Renner</td>
                 <td>
-                    <?php print ($wielrenner->getVoornaam() . " " . $wielrenner->getFamilienaam()); ?>
+                    {{wielrenner.voornaam}} {{wielrenner.familienaam}}
                 </td>
             </tr>
             <tr>
                 <td>Contractjaar:</td>
                 <td>
-                    <?php print ($jaar); ?>
+                    {{jaar}}
                 </td>
             </tr>
             <tr>
                 <td>Ploeg:</td>
                 <td>
                     <select name="ploeg" required>
-                        <?php
-                        foreach ($ploegen as $ploeg) {
-                            ?>
-                            <option value="<?php print ($ploeg->getId()) ?>"><?php print ($ploeg->getNaam()); ?></option>
-                            <?php
-                        }
-                        ?>
+                        {% for ploeg in ploegen %}
+                            <option value="{{ploeg.id}}">{{ploeg.naam}}</option>
+                        {% endfor %}
                     </select>
                 </td>
             </tr>
@@ -44,7 +35,4 @@ require_once("header.php");
         </tbody>
     </table>
 </form>
-
-</body>
-
-</html>
+{% endblock %}

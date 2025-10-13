@@ -44,3 +44,14 @@ body {
 .rennerInfo img {
     width: 100px;
 }
+
+#gebruikers,
+#gebruikers th,
+#gebruikers td {
+    border: 2px solid #000000;
+    border-collapse: collapse;
+}
+
+.fout {
+    color: #ff0000;
+}

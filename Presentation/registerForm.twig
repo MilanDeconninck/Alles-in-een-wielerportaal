@@ -1,19 +1,11 @@
-<?php
+{% extends "header.twig" %}
 
-declare(strict_types=1);
-
-require_once("header.php");
-?>
-
-<h1>Registeren</h1>
-<?php
-if ($error != "") {
-    ?>
-    <div class="fout"><?php print ($error); ?></div>
-    <?php
-}
-if ($_SESSION["gebruiker"] == "bezoeker") {
-    ?>
+{% block content %}
+<h1>Registreren</h1>
+{% if error is not empty %}
+    {{error}}
+{% endif %}
+{% if gebruikersession == 'bezoeker' %}
     <form action="register.php" method="post">
         <table>
             <tbody>
@@ -43,9 +35,5 @@ if ($_SESSION["gebruiker"] == "bezoeker") {
             </tbody>
         </table>
     </form>
-    <?php
-}
-?>
-</body>
-
-</html>
+{% endif %}
+{% endblock %}

@@ -64,4 +64,18 @@ class GebruikerService
         $rechten = $gebruiker["rechten"];
         return $rechten;
     }
+
+    public function getGebruikerByEmail(string $email)
+    {
+        $gebruiker = $this->gebruikerDAO->getGebruikerByEmail($email);
+        if (empty($gebruiker)) {
+            throw new GebruikerBestaatNietException();
+        }
+        $gebruikerInfo = new Gebruiker((int) $gebruiker["id"], $gebruiker["emailadres"], $gebruiker["wachtwoord"], $gebruiker["rechten"]);
+        return $gebruikerInfo;
+    }
+
+    public function changeRechten(int $id, string $email, string $wachtwoord, string $rechten) {
+        $this->gebruikerDAO->update($id, $email, $wachtwoord, $rechten);
+    }
 }
