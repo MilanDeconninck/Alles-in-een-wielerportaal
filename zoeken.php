@@ -40,8 +40,12 @@ $fietsmerkSvc = new FietsmerkService();
 
 $error = "";
 
-if (isset($_POST["input"])) {
-    $zoekterm = $_POST["input"];
+if(isset($_POST["input"])) {
+    $_SESSION["input"] = $_POST["input"];
+}
+
+if (isset($_SESSION["input"])) {
+    $zoekterm = $_SESSION["input"];
     $rennerForId = $wielrennerSvc->getIdFromFullName($zoekterm);
     if (!$rennerForId) {
         $zoekenSoort = "ploeg";
@@ -58,7 +62,7 @@ if ($zoekenSoort == "renner") {
         if (!isset($_SESSION["gebruiker"]) || $_SESSION["gebruiker"] == "bezoeker") {
             header("Location: login.php");
         } elseif ($_SESSION["gebruiker"] == "gebruiker" || $_SESSION["gebruiker"] == "admin") {
-            if (isset($_POST["input"])) {
+            if (isset($_SESSION["input"])) {
                 $startdatum = date("Y") + 1 . "-01-01";
                 $einddatum = date("Y") + 1 . "12-31";
                 $reedsContract = $contractSvc->contractCheck($sessionId, $startdatum);
