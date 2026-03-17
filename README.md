@@ -14,7 +14,9 @@ Dit project was een opdracht om enkel de registratie/login functionaliteiten en 
 
 ### Logingegevens:
 Gebruiker: test@test.be - test
+
 Admin: testadmin@test.be - admin
 
 Ploegen: Velocity Vortex en Cyclone Collective
+
 Renners: Pieter Van der Veken en Emma Dubois
