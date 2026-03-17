@@ -1,0 +1,20 @@
+<h1>Alles-in-één Wielerportaal<h1>
+
+Deze opdracht bevat een registratie en login functionaliteiten. Wanneer iemand de website bezoekt wordt hij/zij automatisch bezoeker. Bezoekers kunnen enkel registreren of aanmelden, zij kunnen de zoekfunctionaliteiten niet gebruiken.
+
+Naast bezoeker kan je ook gebruiker of admin zijn. Gebruikers zijn personen die zich hebben geregistreerd via het registratieformulier. Deze gebruikers hebben na het aanmelden 2 mogelijkheden. Ze kunnen de zoekfunctionaliteiten gebruiken of ze kunnen zich afmelden.
+
+Een admin kan hetzelfde als een gebruiker, maar krijgt de extra functionaliteit dat hij/zij gebruikers kan opzoeken en dat hij/zij renners kan transfereren of op pensioen kan laten gaan. Hij/zij kan op deze pagina gebruikers opzoeken aan de hand van hun e-mailadres en kan ook de rechten aanpassen van gebruikers (admin of gebruiker).
+
+Op de zoekpagina kan de bezoeker renners en ploegen opzoeken aan de hand van een live-search zoekbalk. Als de bezoeker een renner of ploeg aanklikt krijgt deze een overzichtspagina.
+
+Op de overzichtspagina voor renners kan de admin dan ook gegevens aanpassen.
+
+Dit project was een opdracht om enkel de registratie/login functionaliteiten en zoekfunctie voor renners te maken. Ik breidde dit uit met de ploegen, hierbij kon ik enkel de huidige renners niet meer toevoegen. Alles staat ook klaar om wedstrijden op te zoeken en aan te passen mocht dit nog gevraagd worden.
+
+<h2>Logingegevens:<h2>
+Gebruiker: test@test.be - test
+Admin: testadmin@test.be - admin
+
+Ploegen: Velocity Vortex en Cyclone Collective
+Renners: Pieter Van der Veken en Emma Dubois

@@ -22,6 +22,11 @@ if (!isset($_SESSION["gebruiker"])) {
     exit();
 }
 
+if($_SESSION["gebruiker"] == "bezoeker") {
+    header("Location: login.php");
+    exit();
+}
+
 print $twig->render("zoekpagina.twig", array(
     "gebruikersession" => $_SESSION["gebruiker"]
 ));
