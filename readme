@@ -1,4 +1,4 @@
-<h1>Alles-in-één Wielerportaal<h1>
+Alles-in-één Wielerportaal
 
 Deze opdracht bevat een registratie en login functionaliteiten. Wanneer iemand de website bezoekt wordt hij/zij automatisch bezoeker. Bezoekers kunnen enkel registreren of aanmelden, zij kunnen de zoekfunctionaliteiten niet gebruiken.
 
@@ -12,7 +12,7 @@ Op de overzichtspagina voor renners kan de admin dan ook gegevens aanpassen.
 
 Dit project was een opdracht om enkel de registratie/login functionaliteiten en zoekfunctie voor renners te maken. Ik breidde dit uit met de ploegen, hierbij kon ik enkel de huidige renners niet meer toevoegen. Alles staat ook klaar om wedstrijden op te zoeken en aan te passen mocht dit nog gevraagd worden.
 
-<h2>Logingegevens:<h2>
+Logingegevens:
 Gebruiker: test@test.be - test
 Admin: testadmin@test.be - admin
 
