@@ -39,7 +39,7 @@ class DeelnemerDAO
 
     public function getDeelnamesByPloegId(int $ploegId)
     {
-        $sql = "select * from deelnemers where ploegId = :ploegId group by wedstrijdId order by id";
+        $sql = "select * from deelnemers where ploegId = :ploegId order by id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);
         $stmt->bindValue(':ploegId', $ploegId);
